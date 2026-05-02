@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Quest Game — Visualization of AI Algorithms in Dungeon Pathfinding</title>
+    <meta name="description" content="Interactive visualization of 7 AI algorithms (BFS, DFS, A*, Hill Climbing, Minimax, CSP, K-Means) solving dungeon pathfinding problems.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <!-- Animated Background Particles -->
+    <canvas id="particles-canvas"></canvas>
+
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header" id="app-header">
+            <div class="header-glow"></div>
+            <div class="header-content">
+                <div class="header-icon">⚔️</div>
+                <div class="header-text">
+                    <h1>AI Quest Game</h1>
+                    <p class="header-subtitle">Visualization of AI Algorithms in Dungeon Pathfinding</p>
+                </div>
+                <div class="header-icon">🏰</div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="main-layout">
+            <!-- Algorithm Panels Grid -->
+            <div class="panels-section">
+                <div class="panels-grid">
+                    <!-- Panel 1: BFS -->
+                    <div class="algo-panel" id="panel-bfs" data-algo="bfs">
+                        <div class="panel-header">
+                            <span class="panel-number">1</span>
+                            <div class="panel-title-group">
+                                <h3>BFS</h3>
+                                <span class="panel-subtitle">(Breadth-First Search)</span>
+                            </div>
+                            <div class="panel-status" id="status-bfs"></div>
+                        </div>
+                        <div class="panel-canvas-wrapper">
+                            <canvas id="canvas-bfs" width="400" height="340"></canvas>
+                        </div>
+                        <p class="panel-description">Explores level by level in all directions.</p>
+                    </div>
+
+                    <!-- Panel 2: DFS -->
+                    <div class="algo-panel" id="panel-dfs" data-algo="dfs">
+                        <div class="panel-header">
+                            <span class="panel-number">2</span>
+                            <div class="panel-title-group">
+                                <h3>DFS</h3>
+                                <span class="panel-subtitle">(Depth-First Search)</span>
+                            </div>
+                            <div class="panel-status" id="status-dfs"></div>
+                        </div>
+                        <div class="panel-canvas-wrapper">
+                            <canvas id="canvas-dfs" width="400" height="340"></canvas>
+                        </div>
+                        <p class="panel-description">Explores as deep as possible before backtracking.</p>
+                    </div>
+
+                    <!-- Panel 3: A* -->
+                    <div class="algo-panel" id="panel-astar" data-algo="astar">
+                        <div class="panel-header">
+                            <span class="panel-number">3</span>
+                            <div class="panel-title-group">
+                                <h3>A*</h3>
+                                <span class="panel-subtitle">(A-Star Search)</span>
+                            </div>
+                            <div class="panel-status" id="status-astar"></div>
+                        </div>
+                        <div class="panel-canvas-wrapper">
+                            <canvas id="canvas-astar" width="400" height="340"></canvas>
+                        </div>
+                        <p class="panel-description">Finds an efficient path using heuristic guidance.</p>
+                    </div>
+
+                    <!-- Panel 4: Hill Climbing -->
+                    <div class="algo-panel" id="panel-hill" data-algo="hill">
+                        <div class="panel-header">
+                            <span class="panel-number">4</span>
+                            <div class="panel-title-group">
+                                <h3>Hill Climbing</h3>
+                                <span class="panel-subtitle">(Local Search)</span>
+                            </div>
+                            <div class="panel-status" id="status-hill"></div>
+                        </div>
+                        <div class="panel-canvas-wrapper">
+                            <canvas id="canvas-hill" width="400" height="340"></canvas>
+                        </div>
+                        <p class="panel-description">Moves to better neighbors; may get stuck and restart.</p>
+                    </div>
+
+                    <!-- Panel 5: Minimax -->
+                    <div class="algo-panel" id="panel-minimax" data-algo="minimax">
+                        <div class="panel-header">
+                            <span class="panel-number">5</span>
+                            <div class="panel-title-group">
+                                <h3>Minimax</h3>
+                                <span class="panel-subtitle">(Turn-Based Adversarial)</span>
+                            </div>
+                            <div class="panel-status" id="status-minimax"></div>
+                        </div>
+                        <div class="panel-canvas-wrapper">
+                            <canvas id="canvas-minimax" width="400" height="340"></canvas>
+                        </div>
+                        <p class="panel-description">Wizard (blue) vs Enemy (red) in turn-based chase.</p>
+                    </div>
+
+                    <!-- Panel 6: CSP -->
+                    <div class="algo-panel" id="panel-csp" data-algo="csp">
+                        <div class="panel-header">
+                            <span class="panel-number">6</span>
+                            <div class="panel-title-group">
+                                <h3>CSP</h3>
+                                <span class="panel-subtitle">(Constraint Satisfaction)</span>
+                            </div>
+                            <div class="panel-status" id="status-csp"></div>
+                        </div>
+                        <div class="panel-canvas-wrapper">
+                            <canvas id="canvas-csp" width="400" height="340"></canvas>
+                        </div>
+                        <p class="panel-description">Tries configurations by adding/removing walls (backtracking).</p>
+                    </div>
+
+                    <!-- Panel 7: K-Means -->
+                    <div class="algo-panel" id="panel-kmeans" data-algo="kmeans">
+                        <div class="panel-header">
+                            <span class="panel-number">7</span>
+                            <div class="panel-title-group">
+                                <h3>K-Means Clustering</h3>
+                                <span class="panel-subtitle">(K = 3)</span>
+                            </div>
+                            <div class="panel-status" id="status-kmeans"></div>
+                        </div>
+                        <div class="panel-canvas-wrapper">
+                            <canvas id="canvas-kmeans" width="400" height="340"></canvas>
+                        </div>
+                        <p class="panel-description">Groups similar cells into 3 clusters (zones) based on proximity.</p>
+                    </div>
+                </div>
+
+                <!-- Bottom Section: Legend + How to Read + Algorithms List -->
+                <div class="bottom-section">
+                    <div class="legend-card">
+                        <h4>LEGEND</h4>
+                        <div class="legend-grid">
+                            <div class="legend-item"><span class="legend-swatch" style="background:#F5F5F5; border:1px solid #555;"></span> Walkable Tile</div>
+                            <div class="legend-item"><span class="legend-swatch" style="background:#2C2C2C; border:1px solid #555;"></span> Wall / Obstacle</div>
+                            <div class="legend-item"><span class="legend-swatch" style="background:#F39C12;"></span> Goal (Treasure)</div>
+                            <div class="legend-item"><span class="legend-swatch" style="background:#1ABC9C;"></span> Wizard (Start)</div>
+                            <div class="legend-item"><span class="legend-swatch" style="background:#E74C3C;"></span> Enemy</div>
+                            <div class="legend-item"><span class="legend-swatch" style="background:#9B59B6;"></span> Explored Node</div>
+                            <div class="legend-item"><span class="legend-swatch" style="background:#3498DB;"></span> DFS Path</div>
+                            <div class="legend-item"><span class="legend-swatch" style="background:#2ECC71;"></span> A* Path</div>
+                            <div class="legend-item"><span class="legend-swatch" style="background:#E67E22;"></span> Hill Climbing Path</div>
+                            <div class="legend-item"><span class="legend-swatch" style="background:#3498DB;"></span> Wizard Move (Minimax)</div>
+                            <div class="legend-item"><span class="legend-swatch" style="background:#E74C3C;"></span> Enemy Move (Minimax)</div>
+                        </div>
+                    </div>
+
+                    <div class="howto-card">
+                        <h4>HOW TO READ</h4>
+                        <p>Each panel shows how a different AI algorithm explores the dungeon to reach the goal (<span style="color:#F39C12">🏆</span>). Compare how many nodes each explores and how efficient their path is!</p>
+                        <div class="tip-box">
+                            <span class="tip-icon">💡</span>
+                            <span>Tip: Different algorithms have different strategies. Some explore widely, some go deep, some are smart and efficient!</span>
+                        </div>
+                    </div>
+
+                    <div class="algorithms-list-card">
+                        <h4>ALGORITHMS</h4>
+                        <ul class="algo-list">
+                            <li><span class="algo-dot" style="background:#3498DB"></span> BFS (Breadth-First Search)</li>
+                            <li><span class="algo-dot" style="background:#9B59B6"></span> DFS (Depth-First Search)</li>
+                            <li><span class="algo-dot" style="background:#2ECC71"></span> A* (A-Star Search)</li>
+                            <li><span class="algo-dot" style="background:#E67E22"></span> Hill Climbing</li>
+                            <li><span class="algo-dot" style="background:#E74C3C"></span> Minimax (Adversarial)</li>
+                            <li><span class="algo-dot" style="background:#1ABC9C"></span> CSP (Backtracking)</li>
+                            <li><span class="algo-dot" style="background:#F1C40F"></span> K-Means Clustering</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Sidebar -->
+            <aside class="sidebar" id="sidebar">
+                <!-- Algorithm Panel -->
+                <div class="sidebar-card">
+                    <div class="card-header-glow"></div>
+                    <h3 class="card-title">ALGORITHM PANEL</h3>
+                    <label class="select-label" for="algo-select">Select Algorithm</label>
+                    <select id="algo-select" class="algo-select">
+                        <option value="bfs">1  BFS (Breadth-First Search)</option>
+                        <option value="dfs">2  DFS (Depth-First Search)</option>
+                        <option value="astar">3  A* (A-Star Search)</option>
+                        <option value="hill">4  Hill Climbing</option>
+                        <option value="minimax">5  Minimax (Adversarial)</option>
+                        <option value="csp">6  CSP (Backtracking)</option>
+                        <option value="kmeans">7  K-Means Clustering</option>
+                        <option value="all">⚡ Run All Algorithms</option>
+                    </select>
+                </div>
+
+                <!-- Statistics -->
+                <div class="sidebar-card stats-card">
+                    <h3 class="card-title">STATISTICS</h3>
+                    <div class="stat-row">
+                        <span class="stat-icon">🔍</span>
+                        <span class="stat-label">Nodes Explored</span>
+                        <span class="stat-value" id="stat-nodes">—</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-icon">📏</span>
+                        <span class="stat-label">Path Length</span>
+                        <span class="stat-value" id="stat-path">—</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-icon">⏱️</span>
+                        <span class="stat-label">Execution Time</span>
+                        <span class="stat-value" id="stat-time">—</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-icon">💾</span>
+                        <span class="stat-label">Memory Used</span>
+                        <span class="stat-value" id="stat-memory">—</span>
+                    </div>
+                </div>
+
+                <!-- Speed Control -->
+                <div class="sidebar-card">
+                    <h3 class="card-title">SPEED CONTROL</h3>
+                    <div class="speed-control">
+                        <label for="speed-slider">Speed: <span id="speed-label">Normal</span></label>
+                        <input type="range" id="speed-slider" min="1" max="5" value="3" step="1">
+                        <div class="speed-labels">
+                            <span>Slow</span>
+                            <span>Fast</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="sidebar-card actions-card">
+                    <button class="btn-run" id="btn-run">
+                        <span class="btn-icon">▶</span>
+                        RUN AI
+                    </button>
+                    <button class="btn-reset" id="btn-reset">
+                        <span class="btn-icon">🔄</span>
+                        RESET BOARD
+                    </button>
+                    <button class="btn-new" id="btn-new">
+                        <span class="btn-icon">🗺️</span>
+                        NEW DUNGEON
+                    </button>
+                </div>
+
+                <!-- Execution Log -->
+                <div class="sidebar-card log-card">
+                    <h3 class="card-title">EXECUTION LOG</h3>
+                    <div class="log-area" id="log-area">
+                        <div class="log-entry log-info">System ready. Select an algorithm and click RUN AI.</div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <script src="algorithms.js"></script>
+    <script src="renderer.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
